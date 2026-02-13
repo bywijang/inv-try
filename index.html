@@ -50,16 +50,19 @@
 
   .arch-frame { border-radius: 150px 150px 0 0; border: 1.5px solid var(--primary); padding: 12px; }
   
-  .music-btn { 
  .music-btn { 
-    position: fixed; 
-    bottom: 30px; 
+    position: fixed !important; /* Memaksa tetap di posisi layar */
+    bottom: 20px; 
     right: 20px; 
-    z-index: 90; 
-    width: 80px; /* Ukuran bisa diperbesar sedikit agar foto terlihat */
-    height: 80px; 
+    z-index: 999; /* Pastikan di lapisan paling atas */
+    width: 50px; 
+    height: 50px; 
     border-radius: 50%; 
     cursor: pointer; 
+    overflow: hidden; /* Agar foto terpotong bulat sempurna */
+    border: 2px solid white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    background: var(--primary); /* Warna dasar jika foto belum load */
 }
   }
 
@@ -85,8 +88,8 @@
   </div>
 
   <div class="mobile-frame shadow-2xl">
-   <div id="music-container" class="music-btn overflow-hidden border-2 border-white shadow-lg" onclick="toggleMusic()">
-  <img id="music-img" src="musikfoto.jpg" class="w-full h-full object-cover rotating" alt="Music">
+  <div id="music-container" class="music-btn" onclick="toggleMusic()">
+  <img id="music-img" src="musik-foto.jpg" class="w-full h-full object-cover rotating" style="display: block;" alt="Music">
   
   <audio id="myAudio" loop>
     <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
@@ -310,6 +313,28 @@ function toggleMusic() {
       rsvpForm.reset();
     });
   </script>
+  <script>
+  var audio = document.getElementById("myAudio");
+  audio.volume = 0.3; // Mengatur volume ke 30% sejak awal
+
+  function toggleMusic() {
+      const img = document.getElementById("music-img");
+      if (audio.paused) {
+          audio.play();
+          img.style.animationPlayState = 'running';
+      } else {
+          audio.pause();
+          img.style.animationPlayState = 'paused';
+      }
+  }
+
+  // Fungsi saat buka undangan
+  function openInvitation() {
+      document.getElementById('cover').style.transform = 'translateY(-100%)';
+      audio.play();
+      audio.volume = 0.3; // Double check volume saat mulai
+  }
+</script>
 </body>
 
 </html>
