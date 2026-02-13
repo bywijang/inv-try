@@ -51,10 +51,16 @@
   .arch-frame { border-radius: 150px 150px 0 0; border: 1.5px solid var(--primary); padding: 12px; }
   
   .music-btn { 
-    position: fixed; bottom: 30px; right: 20px; z-index: 90; 
-    background: var(--primary); color: white; width: 45px; height: 45px; 
-    border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-    cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+ .music-btn { 
+    position: fixed; 
+    bottom: 30px; 
+    right: 20px; 
+    z-index: 90; 
+    width: 80px; /* Ukuran bisa diperbesar sedikit agar foto terlihat */
+    height: 80px; 
+    border-radius: 50%; 
+    cursor: pointer; 
+}
   }
 
   .rotating { animation: rotate 3s linear infinite; }
@@ -79,12 +85,13 @@
   </div>
 
   <div class="mobile-frame shadow-2xl">
-    <div id="music-container" class="music-btn" onclick="toggleMusic()">
-      <span id="music-icon">🎵</span>
-      <audio id="myAudio" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
-      </audio>
-    </div>
+   <div id="music-container" class="music-btn overflow-hidden border-2 border-white shadow-lg" onclick="toggleMusic()">
+  <img id="music-img" src="musikfoto.jpg" class="w-full h-full object-cover rotating" alt="Music">
+  
+  <audio id="myAudio" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+  </audio>
+</div>
 
     <section class="min-h-screen flex flex-col items-center justify-center p-8 text-center">
 
@@ -127,7 +134,7 @@
     
     <div class="text-center" data-aos="fade-right">
       <div class="arch-frame w-56 h-72 mx-auto mb-6 overflow-hidden relative shadow-xl" 
-           style="border-radius: 150px 150px 0 0; border: 4px solid #9B6B43; padding: 6px; background-color: white;">
+           style="border-radius: 150px 150px 0 0; border: 4px solid #9B6B43; padding:; background-color: white;">
         <img src="cpw.jpg" 
              class="w-full h-full object-cover" 
              style="object-position: center top;" 
@@ -149,7 +156,7 @@
 
     <div class="text-center" data-aos="fade-left">
       <div class="arch-frame w-56 h-72 mx-auto mb-6 overflow-hidden relative shadow-xl" 
-           style="border-radius: 150px 150px 0 0; border: 4px solid #9B6B43; padding: 6px; background-color: white;">
+           style="border-radius: 150px 150px 0 0; border: 4px solid #9B6B43; padding:; background-color: white;">
         <img src="cpp.jpg" 
              class="w-full h-full object-cover" 
              style="object-position: center top;" 
@@ -239,7 +246,19 @@
       document.getElementById('myAudio').play();
       document.getElementById('music-icon').classList.add('rotating');
     }
+// Pastikan script ini dipanggil saat musik mulai berputar
+var audio = document.getElementById("myAudio");
 
+function toggleMusic() {
+    if (audio.paused) {
+        audio.volume = 0.3; // Mengatur volume menjadi 30%
+        audio.play();
+        document.getElementById("music-img").classList.add("rotating");
+    } else {
+        audio.pause();
+        document.getElementById("music-img").classList.remove("rotating");
+    }
+}
     function toggleMusic() {
       const audio = document.getElementById('myAudio');
       const icon = document.getElementById('music-icon');
