@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Digital - Azzahra & Wijang</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Alice&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root { --primary: #9B6B43; --bg: #F4F1EA; --text: #4A4238; }
+    body { font-family: 'Quicksand', sans-serif; background-color: #1a1a1a; color: var(--text); overflow-x: hidden; }
+    .font-title { font-family: 'Marcellus', serif; }
+    .font-serif { font-family: 'Alice', serif; }
+    
+    .mobile-frame { 
+      max-width: 450px; 
+      margin: 0 auto; 
+      background: var(--bg); 
+      min-height: 100vh; 
+      position: relative; 
+      box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    }
+
+    #cover {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1000');
+      background-size: cover; background-position: center;
+      z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .arch-frame { border-radius: 150px 150px 0 0; border: 1.5px solid var(--primary); padding: 12px; }
+    
+    .music-btn { 
+      position: fixed; bottom: 30px; right: 20px; z-index: 90; 
+      background: var(--primary); color: white; width: 45px; height: 45px; 
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+      cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+    }
+
+    .rotating { animation: rotate 3s linear infinite; }
+    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+  </style>
+</head>
+
+<body>
+
+  <div id="cover">
+    <div class="text-center text-white p-6 animate__animated animate__fadeIn">
+      <p class="uppercase tracking-[0.5em] text-[10px] mb-6 opacity-80">The Wedding of</p>
+      <h1 class="text-5xl font-title mb-8 leading-tight">Azzahra<br>& Wijang</h1>
+      <div class="mb-10 py-4 border-y border-white/20">
+        <p class="text-[10px] uppercase tracking-widest mb-2 opacity-70">Special Invite To:</p>
+        <h2 class="text-xl font-serif italic tracking-wider">Zulaikha The Matchmaker</h2>
+      </div>
+      <button onclick="openInvitation()" class="bg-white text-black px-10 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-stone-200 transition-all shadow-xl">
+        Buka Undangan
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-frame shadow-2xl">
+    <div id="music-container" class="music-btn" onclick="toggleMusic()">
+      <span id="music-icon">🎵</span>
+      <audio id="myAudio" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <section class="min-h-screen flex flex-col items-center justify-center p-8 text-center bg-[#EAE3D5]">
+      <div class="arch-frame w-full py-12 px-4" data-aos="fade-up">
+        <p class="uppercase tracking-[0.4em] text-[10px] mb-4 text-[#9B6B43]">Walimatul 'Ursy</p>
+        <h1 class="text-5xl font-title text-[#7A5A3D] leading-tight">Azzahra<br>&<br>Wijang</h1>
+        <div class="h-[1px] w-20 bg-[#9B6B43] mx-auto my-6"></div>
+        <p class="font-serif text-xl text-[#9B6B43] mb-8 text-center w-full">Sabtu, 04 April 2026</p>
+
+        <h3 class="font-title text-[10px] uppercase tracking-[0.3em] mb-4 text-stone-400">Menuju Hari Bahagia</h3>
+        <div id="countdown" class="flex justify-center gap-4">
+          <div class="flex flex-col"><span id="days" class="text-2xl font-light text-[#7A5A3D]">00</span><span class="text-[8px] uppercase">Hari</span></div>
+          <div class="flex flex-col"><span id="hours" class="text-2xl font-light text-[#7A5A3D]">00</span><span class="text-[8px] uppercase">Jam</span></div>
+          <div class="flex flex-col"><span id="minutes" class="text-2xl font-light text-[#7A5A3D]">00</span><span class="text-[8px] uppercase">Menit</span></div>
+          <div class="flex flex-col"><span id="seconds" class="text-2xl font-light text-[#7A5A3D]">00</span><span class="text-[8px] uppercase">Detik</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 px-8 text-center bg-[#f5ecda] rounded-t-[50px] -mt-12 relative z-10 shadow-sm" data-aos="fade-up">
+      <div class="text-[#7A5A3D] text-3xl mb-8 leading-loose font-serif italic" dir="rtl">
+        وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةً
+      </div>
+      <p class="text-xs leading-relaxed text-stone-500 italic mb-6 px-4">
+        "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya."
+      </p>
+      <p class="font-bold text-[#9B6B43] tracking-widest text-[10px] uppercase">— QS. Ar-Rum: 21 —</p>
+    </section>
+
+    <section class="py-12 px-10 text-center" data-aos="fade-up">
+      <p class="text-xs leading-relaxed text-stone-500 italic">
+        Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Semoga Allah senantiasa meridhoi pernikahan kami:
+      </p>
+    </section>
+
+    <section class="py-10 px-8 space-y-20">
+      <div class="text-center" data-aos="fade-right">
+        <div class="arch-frame w-48 h-64 mx-auto mb-6 overflow-hidden" style="border-radius: 150px;">
+          <img src="https://via.placeholder.com/400x600/D4B996/7A5A3D?text=Azzahra" class="w-full h-full object-cover">
+        </div>
+        <h2 class="text-3xl font-title text-[#7A5A3D]">Luthfia Azzahra</h2>
+        <p class="text-[10px] uppercase mt-2 font-bold tracking-widest text-[#9B6B43]">Mempelai Wanita</p>
+        <p class="text-xs mt-4 px-4 leading-relaxed">Putri dari Bapak Hermawan Nuryanto<br>& Ibu Deni Latifah</p>
+      </div>
+
+      <div class="text-4xl font-serif text-center text-[#D4B996] opacity-50">&</div>
+
+      <div class="text-center" data-aos="fade-left">
+        <div class="arch-frame w-48 h-64 mx-auto mb-6 overflow-hidden">
+          <img src="https://via.placeholder.com/400x600/D4B996/7A5A3D?text=Wijang" class="w-full h-full object-cover">
+        </div>
+        <h2 class="text-3xl font-title text-[#7A5A3D]">Wijang Asadullah Al Sueh</h2>
+        <p class="text-[10px] uppercase mt-2 font-bold tracking-widest text-[#9B6B43]">Mempelai Pria</p>
+        <p class="text-xs mt-4 px-4 leading-relaxed">Putra dari Bapak Bandiya<br>& Ibu Sumanah</p>
+      </div>
+    </section>
+
+    <section class="py-16 px-6 bg-[#7A5A3D] text-white text-center rounded-t-[50px] shadow-lg" data-aos="fade-up">
+      <h3 class="font-title text-3xl mb-2 italic">Save The Date</h3>
+      <p class="font-serif text-xl mb-10 tracking-widest border-b border-white/20 pb-4 inline-block mx-auto">Sabtu, 04 April 2026</p>
+
+      <div class="space-y-6 max-w-sm mx-auto">
+        <div class="p-4 border border-white/20 rounded-2xl bg-white/5">
+          <h4 class="text-sm font-bold uppercase tracking-widest">Akad Nikah: 08.00 - 10.00 WIB</h4>
+        </div>
+        <div class="p-4 border border-white/20 rounded-2xl bg-white/5">
+          <h4 class="text-sm font-bold uppercase tracking-widest">Resepsi: 11.00 - Selesai</h4>
+        </div>
+        <div class="py-6">
+          <p class="text-lg font-bold mb-2">RM. Genduk Wulan</p>
+          <p class="text-xs opacity-70 px-6">Jl. Godean - Seyegan, Ngampon, Margodadi, Sleman, Yogyakarta</p>
+        </div>
+        <a href="https://maps.app.goo.gl/v6n9XoN9u7L4S1zW9" target="_blank" class="inline-block bg-[#F4F1EA] text-[#7A5A3D] px-8 py-3 rounded-full text-[10px] font-bold tracking-widest shadow-lg uppercase transition-transform hover:scale-105">Buka Google Maps</a>
+      </div>
+    </section>
+
+    <section class="py-20 px-8 text-center bg-white" data-aos="fade-up">
+      <h3 class="font-title text-2xl text-[#7A5A3D] mb-6 tracking-widest uppercase">Kado Digital</h3>
+      <p class="text-[10px] text-stone-500 italic mb-8 px-6 leading-relaxed">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika ingin memberi kado secara cashless melalui:</p>
+
+      <div class="space-y-6">
+        <div class="bg-[#F4F1EA] p-8 rounded-[30px] border border-stone-100 max-w-xs mx-auto shadow-inner">
+          <p class="font-bold text-[10px] text-stone-400 mb-3 tracking-widest uppercase">BRI - Luthfia Azzahra</p>
+          <p class="text-2xl tracking-widest text-[#7A5A3D] mb-6 font-light">1234567890</p>
+          <button onclick="copyText('1234567890')" class="bg-[#7A5A3D] text-white px-8 py-2 rounded-full text-[9px] font-bold uppercase tracking-widest active:scale-95 transition-transform">Salin Rekening</button>
+        </div>
+        <div class="bg-[#F4F1EA] p-8 rounded-[30px] border border-stone-100 max-w-xs mx-auto shadow-inner">
+          <p class="font-bold text-[10px] text-stone-400 mb-3 tracking-widest uppercase text-center">BANK JAGO SYARIAH<br>Wijang Asadulah A.</p>
+          <p class="text-2xl tracking-widest text-[#7A5A3D] mb-6 font-light text-center w-full">000000124</p>
+          <button onclick="copyText('000000124')" class="bg-[#7A5A3D] text-white px-8 py-2 rounded-full text-[9px] font-bold uppercase tracking-widest active:scale-95 transition-transform">Salin Rekening</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 px-8 bg-[#FDFBF9]" data-aos="fade-up">
+      <h3 class="font-title text-center text-2xl text-[#7A5A3D] mb-8 tracking-widest uppercase">Konfirmasi Kehadiran</h3>
+      <form id="rsvpForm" class="space-y-4 bg-white p-6 rounded-[30px] shadow-sm max-w-sm mx-auto border border-stone-100">
+        <input type="text" id="namaTamu" placeholder="Nama Lengkap" required class="w-full p-4 rounded-xl bg-[#F4F1EA] text-sm outline-none border-none focus:ring-1 focus:ring-[#9B6B43]">
+        <select id="statusHadir" required class="w-full p-4 rounded-xl bg-[#F4F1EA] text-sm outline-none border-none focus:ring-1 focus:ring-[#9B6B43]">
+          <option value="" disabled selected>Kehadiran</option>
+          <option value="Hadir">Hadir</option>
+          <option value="Tidak Hadir">Tidak Hadir</option>
+        </select>
+        <textarea id="pesanTamu" placeholder="Ucapan & Doa" required class="w-full p-4 h-24 rounded-xl bg-[#F4F1EA] text-sm outline-none resize-none border-none focus:ring-1 focus:ring-[#9B6B43]"></textarea>
+        <button type="submit" class="w-full bg-[#7A5A3D] text-white py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-opacity">Kirim Ucapan</button>
+      </form>
+      <div id="commentContainer" class="mt-10 space-y-4 max-h-[350px] overflow-y-auto custom-scrollbar pr-2 max-w-sm mx-auto text-left px-2"></div>
+    </section>
+
+    <footer class="py-16 bg-[#EAE3D5] text-center text-[9px] tracking-widest text-stone-500 px-8 leading-loose uppercase">
+      <div data-aos="fade-up">
+        Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.<br><br>
+        <span class="text-xl font-title text-[#7A5A3D] normal-case tracking-normal">Azzahra & Wijang</span><br>
+        © 2026 Crafted with Love<br>
+        Alhamdulillahi jaza kumullahu khoiro :)
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+    document.body.style.overflow = 'hidden';
+
+    function openInvitation() {
+      document.getElementById('cover').style.transform = 'translateY(-100%)';
+      document.body.style.overflow = 'auto';
+      document.getElementById('myAudio').play();
+      document.getElementById('music-icon').classList.add('rotating');
+    }
+
+    function toggleMusic() {
+      const audio = document.getElementById('myAudio');
+      const icon = document.getElementById('music-icon');
+      if (audio.paused) {
+        audio.play();
+        icon.innerText = "🎵";
+        icon.classList.add('rotating');
+      } else {
+        audio.pause();
+        icon.innerText = "🔇";
+        icon.classList.remove('rotating');
+      }
+    }
+
+    const target = new Date("April 4, 2026 11:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = target - now;
+      if (diff < 0) return;
+      document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+      document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+      document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+      document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+    }, 1000);
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text);
+      alert("Nomor rekening berhasil disalin!");
+    }
+
+    const rsvpForm = document.getElementById('rsvpForm');
+    const commentContainer = document.getElementById('commentContainer');
+    rsvpForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nama = document.getElementById('namaTamu').value;
+      const status = document.getElementById('statusHadir').value;
+      const pesan = document.getElementById('pesanTamu').value;
+      const inisial = nama.charAt(0).toUpperCase();
+      
+      const newComment = document.createElement('div');
+      newComment.className = "bg-white p-4 rounded-2xl border border-stone-100 shadow-sm animate__animated animate__fadeInUp";
+      newComment.innerHTML = `<div class="flex items-center gap-3 mb-2"><div class="w-8 h-8 bg-[#9B6B43] rounded-full flex items-center justify-center text-[10px] font-bold text-white">${inisial}</div><span class="font-bold text-[10px] text-[#7A5A3D]">${nama}</span><span class="bg-emerald-100 text-emerald-700 text-[8px] px-2 py-0.5 rounded-full font-bold uppercase">${status}</span></div><p class="text-[10px] text-stone-500 leading-relaxed">${pesan}</p>`;
+      
+      commentContainer.prepend(newComment);
+      
+      const waNumber = "6281226530003";
+      const waText = `Halo Azzahra & Wijang, saya *${nama}* konfirmasi: *${status}*.\n\n"${pesan}"`;
+      window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`, '_blank');
+      rsvpForm.reset();
+    });
+  </script>
+</body>
+
+</html>
