@@ -11,117 +11,55 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <style>
-        :root { --primary: #9B6B43; --bg: #F4F1EA; --text: #4A4238; }
-    .mobile-frame {
+  :root { --primary: #9B6B43; --bg: #F4F1EA; --text: #4A4238; }
+  
+  body { font-family: 'Quicksand', sans-serif; background-color: #1a1a1a; color: var(--text); overflow-x: hidden; }
+  .font-title { font-family: 'Marcellus', serif; }
+  .font-serif { font-family: 'Alice', serif; }
+
+  /* INI SATU-SATUNYA KODE UNTUK BACKGROUND */
+  .mobile-frame {
     max-width: 450px;
     margin: 0 auto;
     position: relative;
     min-height: 100vh;
-    
-    /* GANTI DENGAN GAMBAR ANDA */
-    background-image: url('bg.jpg');
-    background-size: cover; /* Gambar akan menutup seluruh lebar layar */
-    background-position: center top; /* Mulai dari atas tengah */
-    background-attachment: scroll; /* Background ikut bergerak saat di-scroll */
-    
+    width: 100%;
+    box-sizing: border-box;
     overflow-x: hidden;
-    box-shadow: 0 0 50px rgba(0,0,0,0.2);
-}
-    .mobile-frame {
-    max-width: 450px;
-    width: 100%; /* Pastikan gunakan 100% */
-    margin: 0 auto;
-    background: var(--bg);
-    position: relative;
-    overflow-x: hidden; /* Kunci di sini juga */
-    box-sizing: border-box; /* Padding masuk ke dalam, bukan ke luar */
-}
-    /* Kontainer Utama */
-.mobile-frame {
-    max-width: 450px;
-    margin: 0 auto;
-    position: relative;
-    min-height: 100vh;
-    /* Warna dasar kertas yang lebih matang */
-    background: #F2EFE9; 
-    overflow-x: hidden;
-    box-shadow: 0 0 50px rgba(0,0,0,0.2);
-}
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
 
-/* 1. Memberikan warna dasar kertas pada kontainer utama */
-.mobile-frame {
-    max-width: 450px;
-    margin: 0 auto;
-    position: relative;
-    min-height: 100vh;
-    /* Warna dasar Krem Kertas */
-    background-color: #f4f1ea; 
-    /* Efek tekstur kertas menggunakan Radial Gradient halus */
-    background-image: 
-        radial-gradient(#d1ccc0 0.5px, transparent 0.5px), 
-        radial-gradient(#d1ccc0 0.5px, #f4f1ea 0.5px);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
-    overflow-x: hidden;
-}
+    /* PENGATURAN GAMBAR BACKGROUND */
+    background-image: url('bg.jpg'); /* Pastikan file di GitHub namanya bg.jpg */
+    background-size: cover;
+    background-position: center top;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-color: var(--bg); /* Warna cadangan jika gambar gagal load */
+  }
 
-/* 2. Menambah efek Tinta Pudar (Watermark) di latar belakang */
-.mobile-frame::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    /* Menciptakan bercak pudar dengan gradient acak */
-    background: 
-        radial-gradient(circle at 10% 20%, rgba(155, 107, 67, 0.05) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(155, 107, 67, 0.05) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(155, 107, 67, 0.03) 0%, transparent 60%);
-    pointer-events: none; /* Agar tidak menghalangi klik tombol */
-    z-index: 1;
-}
+  /* Elemen di atas background agar tetap terbaca */
+  .mobile-frame > * { position: relative; z-index: 5; }
 
-/* 3. Memastikan semua konten berada di atas efek tinta */
-.mobile-frame > * {
-    position: relative;
-    z-index: 2;
-}
-}
-    body { font-family: 'Quicksand', sans-serif; background-color: #1a1a1a; color: var(--text); overflow-x: hidden; }
-    .font-title { font-family: 'Marcellus', serif; }
-    .font-serif { font-family: 'Alice', serif; }
-    
-    .mobile-frame { 
-      max-width: 450px; 
-      margin: 0 auto; 
-      background: var(--bg); 
-      min-height: 100vh; 
-      position: relative; 
-      box-shadow: 0 0 50px rgba(0,0,0,0.5);
-    }
+  #cover {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('cover.jpg');
+    background-size: cover; background-position: center;
+    z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+  }
 
-    #cover {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('cover.jpg');
-      background-size: cover; background-position: center;
-      z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
-    }
+  .arch-frame { border-radius: 150px 150px 0 0; border: 1.5px solid var(--primary); padding: 12px; }
+  
+  .music-btn { 
+    position: fixed; bottom: 30px; right: 20px; z-index: 90; 
+    background: var(--primary); color: white; width: 45px; height: 45px; 
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+    cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+  }
 
-    .arch-frame { border-radius: 150px 150px 0 0; border: 1.5px solid var(--primary); padding: 12px; }
-    
-    .music-btn { 
-      position: fixed; bottom: 30px; right: 20px; z-index: 90; 
-      background: var(--primary); color: white; width: 45px; height: 45px; 
-      border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-      cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
-    }
-
-    .rotating { animation: rotate 3s linear infinite; }
-    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
-  </style>
+  .rotating { animation: rotate 3s linear infinite; }
+  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
 </head>
 
 <body>
