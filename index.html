@@ -14,6 +14,21 @@
     :root { --primary: #9B6B43; --bg: #F4F1EA; --text: #4A4238; }
     .mobile-frame {
     max-width: 450px;
+    margin: 0 auto;
+    position: relative;
+    min-height: 100vh;
+    
+    /* GANTI DENGAN GAMBAR ANDA */
+    background-image: url('bg.jpg');
+    background-size: cover; /* Gambar akan menutup seluruh lebar layar */
+    background-position: center top; /* Mulai dari atas tengah */
+    background-attachment: scroll; /* Background ikut bergerak saat di-scroll */
+    
+    overflow-x: hidden;
+    box-shadow: 0 0 50px rgba(0,0,0,0.2);
+}
+    .mobile-frame {
+    max-width: 450px;
     width: 100%; /* Pastikan gunakan 100% */
     margin: 0 auto;
     background: var(--bg);
